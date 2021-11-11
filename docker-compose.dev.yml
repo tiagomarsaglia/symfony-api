@@ -1,0 +1,65 @@
+version: '3.5'
+
+services:
+    app:
+        build:
+            context: '.'
+            dockerfile: Dockerfile.dev
+            args:
+                uid: 1000
+        container_name: symfony-api
+        ports:
+            - "9000:9000"
+        environment:
+            - APACHE_RUN_GROUP=#1000
+            - XDEBUG_CONFIG=remote_enable=1 remote_autostart=1 remote_host=172.0.0.1 remote_port=9001
+        volumes:
+            - ./api:/var/www:rw
+        networks:
+            - app-network
+    #Nginx Service
+    server:
+        image: nginx:alpine
+        container_name: nginx
+        restart: unless-stopped
+        command: nginx -g "daemon off;"
+        tty: true
+        links:
+            - app
+        environment:
+            - VIRTUAL_PORT=80
+            - VIRTUAL_HOST=localhost
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+        networks:
+            - app-network
+    #MySQL Service
+    mysql_db:
+        image: mysql:5.7.22
+        container_name: mysql_db
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: symfony
+            MYSQL_USER: root
+            MYSQL_PASSWORD: root
+            SERVICE_TAGS: dev
+            SERVICE_NAME: mysql
+        volumes:
+            - dbdata:/var/lib/mysql/
+        networks:
+            - app-network
+networks:
+    app-network:
+        driver: bridge
+        
+#Volumes
+volumes:
+    dbdata:
+      driver: local

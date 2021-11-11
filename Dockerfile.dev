@@ -1,0 +1,61 @@
+FROM php:8.0-fpm-alpine
+
+# Set working directory
+WORKDIR /var/www
+
+RUN apk update && apk upgrade
+RUN apk add --no-cache sudo \
+    openssl \
+    bash \
+    icu-dev \
+    wget \
+    unzip \
+    zip \
+    make \
+    m4 \
+    gcc \
+    g++ \
+    autoconf \
+    musl-dev \
+    curl \
+    nano
+
+
+
+# Install extensions
+RUN docker-php-ext-configure intl
+RUN docker-php-ext-install mysqli pdo pdo_mysql exif pcntl intl
+
+# Install and configuration swoole extesion in php
+# RUN pecl install swoole-4.7.1
+# RUN touch /usr/local/etc/php/conf.d/swoole.ini && \
+#     echo 'extension=swoole.so' > /usr/local/etc/php/conf.d/swoole.ini
+# RUN docker-php-ext-enable swoole
+
+# Install composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Install xdebug
+RUN pecl install xdebug-3.0.0 \
+    && docker-php-ext-enable xdebug 
+
+COPY /docker/xdebug/99-xdebug.ini /usr/local/etc/php/conf.d/
+
+#installer cli symfony
+RUN wget https://get.symfony.com/cli/installer -O - | bash
+RUN mv /root/.symfony/bin/symfony /usr/local/bin/symfony
+
+# Copy existing application directory contents
+COPY ./api /var/www
+
+RUN composer self-update && \
+    composer clearcache && \
+    COMPOSER_MEMORY_LIMIT=-1 composer install --optimize-autoloader
+    
+# Expose port 80 and start swoole server
+EXPOSE 9000
+EXPOSE 9001
+
+# ENTRYPOINT ["bin/console", "swoole:server:run"]
+# ENTRYPOINT ["symfony", "server:start"]
+CMD ["php-fpm"]
