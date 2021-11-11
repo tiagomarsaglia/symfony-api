@@ -36,7 +36,6 @@ class CarteiraRepository extends ServiceEntityRepository
     }
     */
 
-    
     public function findOneByUsuarioAndId($id, $usuario): ?Carteira
     {
         return $this->createQueryBuilder('c')
@@ -48,5 +47,4 @@ class CarteiraRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-    
 }

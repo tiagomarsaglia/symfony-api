@@ -8,11 +8,10 @@ use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
- * Class ValidationException
+ * Class ValidationException.
  */
 class ValidationException extends \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
 {
-    
     /** @var ValidatorInterface */
     private $validator;
 
@@ -24,7 +23,7 @@ class ValidationException extends \Symfony\Component\HttpKernel\Exception\BadReq
 
     public function __construct(ValidatorInterface $validator, ConstraintViolationList $violations = null)
     {
-        $message = 'Os dados fornecidos não passaram na validação.';        
+        $message = 'Os dados fornecidos não passaram na validação.';
         parent::__construct($message);
 
         $this->validator = $validator;
@@ -32,12 +31,12 @@ class ValidationException extends \Symfony\Component\HttpKernel\Exception\BadReq
         $this->propertyAccessor = PropertyAccess::createPropertyAccessor();
     }
 
-    public function getValidator() : ValidatorInterface
+    public function getValidator(): ValidatorInterface
     {
         return $this->validator;
     }
 
-    public function getResponseData() : array
+    public function getResponseData(): array
     {
         $errors = [];
 

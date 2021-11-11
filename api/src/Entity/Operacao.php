@@ -32,15 +32,14 @@ class Operacao extends AbstractEntity
     public $tipoOperacao;
 
     /**
-    * @ORM\Column(type="float")
-    */
+     * @ORM\Column(type="float")
+     */
     public $valor;
 
     /**
-    *
-    * @var \DateTime
-    * @ORM\Column(name="create_at", type="datetime")
-    */
+     * @var \DateTime
+     * @ORM\Column(name="create_at", type="datetime")
+     */
     protected $dataCadastro;
 
     public function __construct()
@@ -90,7 +89,7 @@ class Operacao extends AbstractEntity
     }
 
     /**
-     * @return \DateTime|NULL
+     * @return \DateTime|null
      */
     public function getDataCadastro()
     {
@@ -98,7 +97,6 @@ class Operacao extends AbstractEntity
     }
 
     /**
-     *
      * @param \DateTime $dataCadastro
      */
     public function setDataCadastro($dataCadastro)

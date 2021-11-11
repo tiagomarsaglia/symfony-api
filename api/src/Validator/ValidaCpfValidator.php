@@ -9,9 +9,10 @@ class ValidaCpfValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint)
     {
-        if (strlen($value) > 0) {
+        if ('' !== $value) {
             if (!$this->validarCpf($value)) {
                 $this->context->addViolation($constraint->message);
+
                 return false;
             }
         }
@@ -21,26 +22,27 @@ class ValidaCpfValidator extends ConstraintValidator
 
     /**
      * @param string $val
+     *
      * @return bool
      */
     protected function validarCpf($val)
     {
         $value = preg_replace('/[^0-9]/', '', $val);
 
-        for ($i = 0; $i <= 9; $i++) {
-            $repetidos = str_pad('', strlen($value), $i);
+        for ($i = 0; $i <= 9; ++$i) {
+            $repetidos = str_pad('', \mb_strlen($value), $i);
             if ($value === $repetidos) {
                 return false;
             }
         }
 
-        if ($value == "01234567890") {
+        if ('01234567890' === $value) {
             return false;
         }
 
         $weights = 11;
 
-        for ($weight = ($weights - 1), $digit = (strlen($value) - 2); $weight <= $weights; $weight++, $digit++) {
+        for ($weight = ($weights - 1), $digit = (\mb_strlen($value) - 2); $weight <= $weights; $weight++, $digit++) {
             for ($sum = 0, $i = 0, $position = $weight; $position >= 2; $position--, $i++) {
                 $sum = $sum + ($value[$i] * $position);
             }
@@ -51,7 +53,7 @@ class ValidaCpfValidator extends ConstraintValidator
                 return false;
             }
         }
+
         return true;
     }
-
 }

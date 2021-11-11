@@ -22,6 +22,6 @@ class NotificationService
 
         $statusCode = $response->getStatusCode();
 
-        return $statusCode  == 200;
+        return 200 === $statusCode;
     }
 }

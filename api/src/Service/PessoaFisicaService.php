@@ -33,7 +33,6 @@ class PessoaFisicaService extends AbstractService
         parent::__construct($em, $validator);
     }
 
-    
     public function create(AbstractEntity $entity, AbstractRequestValidation $validationData): AbstractEntity|ConstraintViolationListInterface
     {
         $this->em->beginTransaction();
@@ -49,14 +48,14 @@ class PessoaFisicaService extends AbstractService
             $pessoaFisica->setValues($validationData->toArray());
             $pessoaFisica->setPessoa($pessoa);
 
-            $carteira =  new Carteira();
+            $carteira = new Carteira();
             $carteira->setUsuario($usuario);
             $carteira->setSaldo(100);
             $carteira = $this->carteiraService->create($carteira, $validationData);
 
             $error = $this->validator->validate($pessoaFisica);
             if ($error->count() > 0) {
-                throw new ValidatorException("Os dados não são compativeis com o modelo de dados");
+                throw new ValidatorException('Os dados não são compativeis com o modelo de dados');
             }
 
             $this->em->persist($pessoaFisica);
@@ -66,7 +65,6 @@ class PessoaFisicaService extends AbstractService
             $this->em->getConnection()->setAutoCommit(true);
 
             return $pessoaFisica;
-            
         } catch (\Exception $e) {
             $this->em->clear();
             $this->em->rollback();

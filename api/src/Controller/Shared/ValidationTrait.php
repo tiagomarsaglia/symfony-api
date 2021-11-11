@@ -1,17 +1,15 @@
 <?php
+
 namespace App\Controller\Shared;
 
 trait ValidationTrait
 {
     /**
-     *
      * @var array
      */
     private $_data;
 
     /**
-     *
-     * @param string $key
      * @param mixed $value
      */
     public function setValue(string $key, $value)
@@ -21,22 +19,19 @@ trait ValidationTrait
     }
 
     /**
-     *
      * @param array $data
      */
     public function setValues($data)
     {
-        foreach ($data as $key => $value ) {
+        foreach ($data as $key => $value) {
             $attributs = array_keys(get_class_vars($this::class));
-            if(in_array($key, $attributs)){
+            if (\in_array($key, $attributs, true)) {
                 $this->setValue($key, $value);
             }
         }
     }
 
     /**
-     *
-     * @param string $key
      * @return mixed
      */
     public function getValue(string $key)
@@ -45,7 +40,6 @@ trait ValidationTrait
     }
 
     /**
-     *
      * @return array
      */
     public function getValues()
@@ -54,11 +48,10 @@ trait ValidationTrait
     }
 
     /**
-     *
      * @return array
      */
-    public function toArray() {
+    public function toArray()
+    {
         return get_object_vars($this);
     }
-
 }

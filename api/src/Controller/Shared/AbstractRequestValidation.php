@@ -2,34 +2,28 @@
 
 namespace App\Controller\Shared;
 
-use App\Controller\PessoaFisica\PessoaFisicaValidation;
-use App\Controller\Shared\ValidationAwareTrait;
-use App\Controller\Shared\ValidationException;
-use stdClass;
 use Symfony\Component\HttpFoundation\FileBag;
 use Symfony\Component\HttpFoundation\HeaderBag;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\ServerBag;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\ConstraintViolationList;
-use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
- * Class AbstractRequestValidation
+ * Class AbstractRequestValidation.
  *
- * @property ParameterBag   $attributes
- * @property ParameterBag   $request
- * @property ParameterBag   $query
- * @property ServerBag      $server
- * @property FileBag        $files
- * @property ParameterBag   $cookies
- * @property HeaderBag      $headers
+ * @property ParameterBag $attributes
+ * @property ParameterBag $request
+ * @property ParameterBag $query
+ * @property ServerBag    $server
+ * @property FileBag      $files
+ * @property ParameterBag $cookies
+ * @property HeaderBag    $headers
  *
- * @method   duplicate(array $query, array $request, array $attributes, array $cookies, array $files, array $server)
- * @method   overrideGlobals()
+ * @method duplicate(array $query, array $request, array $attributes, array $cookies, array $files, array $server)
+ * @method overrideGlobals()
  */
 abstract class AbstractRequestValidation
 {
@@ -47,8 +41,7 @@ abstract class AbstractRequestValidation
         $this->initialize();
     }
 
-
-    final public function initialize() : void
+    final public function initialize(): void
     {
         if (!$this->passesAuthorization()) {
             $this->failedAuthorization();
@@ -58,11 +51,9 @@ abstract class AbstractRequestValidation
     }
 
     /**
-     * Get all request parameters
-     *
-     * @return array
+     * Get all request parameters.
      */
-    final public function all() : array
+    final public function all(): array
     {
         return $this->httpRequest->attributes->all()
             + $this->httpRequest->query->all()
@@ -73,10 +64,8 @@ abstract class AbstractRequestValidation
 
     /**
      * Determine if the request passes the authorization check.
-     *
-     * @return bool
      */
-    final protected function passesAuthorization() : bool
+    final protected function passesAuthorization(): bool
     {
         if (method_exists($this, 'authorize')) {
             return $this->authorize();
@@ -88,24 +77,21 @@ abstract class AbstractRequestValidation
     /**
      * Handle a failed authorization attempt.
      *
-     * @return void
      * @throws AccessDeniedHttpException
      */
-    final protected function failedAuthorization() : void
+    final protected function failedAuthorization(): void
     {
         throw new AccessDeniedHttpException();
     }
 
     /**
-     * @return bool
      * @throws ValidationException
      */
-    final protected function validate() : bool
+    final protected function validate(): bool
     {
-
         /** @var ConstraintViolationList $violations */
         $data = $this->all();
-        
+
         if (isset($data)) {
             $this->setValues($data);
         }
@@ -115,7 +101,6 @@ abstract class AbstractRequestValidation
         if ($violations->count()) {
             throw new ValidationException($this->validator, $violations);
         }
-        
 
         return true;
     }

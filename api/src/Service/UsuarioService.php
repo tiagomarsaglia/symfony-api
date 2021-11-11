@@ -11,5 +11,4 @@ class UsuarioService extends AbstractService
     {
         return $this->em->getRepository(Usuario::class);
     }
-
 }

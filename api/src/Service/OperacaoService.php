@@ -2,21 +2,16 @@
 
 namespace App\Service;
 
-use App\Controller\Shared\AbstractRequestValidation;
 use App\Entity\Carteira;
 use App\Entity\Operacao;
-use App\Entity\Shared\AbstractEntity;
 use App\Entity\TipoOperacao;
 use App\Service\Shared\AbstractService;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Exception\ValidatorException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class OperacaoService extends AbstractService
 {
-
     protected CarteiraService $carteiraService;
 
     public function __construct(
@@ -28,14 +23,12 @@ class OperacaoService extends AbstractService
         parent::__construct($em, $validator);
     }
 
-
     public function receber(Carteira $carteira, float $valor): Operacao
     {
-     
         $carteira->addSaldo($valor);
         $error = $this->validator->validate($carteira);
         if ($error->count() > 0) {
-            throw new ValidatorException("Os dados não são compativeis com o modelo de dados");
+            throw new ValidatorException('Os dados não são compativeis com o modelo de dados');
         }
         $this->em->persist($carteira);
 
@@ -46,7 +39,7 @@ class OperacaoService extends AbstractService
 
         $error = $this->validator->validate($operacao);
         if ($error->count() > 0) {
-            throw new ValidatorException("Os dados não são compativeis com o modelo de dados");
+            throw new ValidatorException('Os dados não são compativeis com o modelo de dados');
         }
         $this->em->persist($operacao);
         $this->em->flush();
@@ -56,11 +49,10 @@ class OperacaoService extends AbstractService
 
     public function sacar(Carteira $carteira, float $valor): Operacao
     {
-     
         $carteira->subSaldo($valor);
         $error = $this->validator->validate($carteira);
         if ($error->count() > 0) {
-            throw new ValidatorException("Os dados não são compativeis com o modelo de dados");
+            throw new ValidatorException('Os dados não são compativeis com o modelo de dados');
         }
         $this->em->persist($carteira);
         $this->em->flush();
@@ -72,17 +64,16 @@ class OperacaoService extends AbstractService
 
         $error = $this->validator->validate($operacao);
         if ($error->count() > 0) {
-            throw new ValidatorException("Os dados não são compativeis com o modelo de dados");
+            throw new ValidatorException('Os dados não são compativeis com o modelo de dados');
         }
         $this->em->persist($operacao);
         $this->em->flush();
 
         return $operacao;
     }
-    
+
     public function getRepository()
     {
         return $this->em->getRepository(Operacao::class);
     }
-
 }

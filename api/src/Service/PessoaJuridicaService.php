@@ -16,7 +16,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class PessoaJuridicaService extends AbstractService
 {
-
     protected PessoaService $pessoaService;
     protected UsuarioService $usuarioService;
     protected CarteiraService $carteiraService;
@@ -34,7 +33,6 @@ class PessoaJuridicaService extends AbstractService
         parent::__construct($em, $validator);
     }
 
-    
     public function create(AbstractEntity $entity, AbstractRequestValidation $validationData): AbstractEntity|ConstraintViolationListInterface
     {
         $this->em->beginTransaction();
@@ -50,21 +48,22 @@ class PessoaJuridicaService extends AbstractService
             $pessoaFisica->setValues($validationData->toArray());
             $pessoaFisica->setPessoa($pessoa);
 
-            $carteira =  new Carteira();
+            $carteira = new Carteira();
             $carteira->setUsuario($usuario);
             $carteira->setSaldo(100);
             $carteira = $this->carteiraService->create($carteira, $validationData);
-            
+
             $error = $this->validator->validate($pessoaFisica);
-            if ($error->count() == 0) {
+            if (0 === $error->count()) {
                 $this->em->persist($pessoaFisica);
                 $this->em->flush();
                 $this->em->commit();
                 $this->em->getConnection()->setAutoCommit(true);
+
                 return $pessoaFisica;
             }
-            
-            throw new ValidatorException("Os dados não são compativeis com o modelo de dados");
+
+            throw new ValidatorException('Os dados não são compativeis com o modelo de dados');
         } catch (\Exception $e) {
             $this->em->clear();
             $this->em->rollback();

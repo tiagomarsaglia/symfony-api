@@ -29,7 +29,6 @@ class TransacaoService
         $this->em = $em;
     }
 
-
     public function create(AbstractRequestValidation $validationData)
     {
         $this->em->beginTransaction();
@@ -39,29 +38,29 @@ class TransacaoService
             $beneficiario = $this->usuarioService->getRepository()->find($validationData->beneficiario);
 
             if (empty($pagador)) {
-                throw new ValidatorException("Usuário de pagador não foi encontrado");
+                throw new ValidatorException('Usuário de pagador não foi encontrado');
             }
 
             if (!empty($pagador->getPessoa()->getPessoaJuridica())) {
-                throw new ValidatorException("Usuário de pessoa jurídica não pode realizar a operação de pagamento");
+                throw new ValidatorException('Usuário de pessoa jurídica não pode realizar a operação de pagamento');
             }
 
             if (empty($beneficiario)) {
-                throw new ValidatorException("Usuário de beneficiario não foi encontrado");
+                throw new ValidatorException('Usuário de beneficiario não foi encontrado');
             }
 
             if (!$this->atorizationService->checkAutorization()) {
-                throw new ValidatorException("Operação não autorizada");
+                throw new ValidatorException('Operação não autorizada');
             }
 
             $operacao = $this->operacaoService->sacar($pagador->getCarteira(), $validationData->valor);
             $operacao = $this->operacaoService->receber($beneficiario->getCarteira(), $validationData->valor);
-            
+
             $this->em->commit();
             $this->em->getConnection()->setAutoCommit(true);
 
             if (!$this->notificationService->checkNotification()) {
-                throw new ValidatorException("Não foi possível notificar os usuários");
+                throw new ValidatorException('Não foi possível notificar os usuários');
             }
 
             return $operacao;

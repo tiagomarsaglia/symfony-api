@@ -43,27 +43,30 @@ class Carteira extends AbstractEntity
     public function setSaldo(float $saldo): self
     {
         $this->saldo = $saldo;
-        if($this->saldo < 0){
-            throw new ValidatorException("Você não possui saldo para esta operação");
+        if ($this->saldo < 0) {
+            throw new ValidatorException('Você não possui saldo para esta operação');
         }
+
         return $this;
     }
 
     public function addSaldo(float $saldo): self
     {
         $this->saldo += $saldo;
-        if($this->saldo < 0){
-            throw new ValidatorException("Você não possui saldo para esta operação");
+        if ($this->saldo < 0) {
+            throw new ValidatorException('Você não possui saldo para esta operação');
         }
+
         return $this;
     }
 
     public function subSaldo(float $saldo): self
     {
         $this->saldo -= $saldo;
-        if($this->saldo < 0){
-            throw new ValidatorException("Você não possui saldo para esta operação");
+        if ($this->saldo < 0) {
+            throw new ValidatorException('Você não possui saldo para esta operação');
         }
+
         return $this;
     }
 

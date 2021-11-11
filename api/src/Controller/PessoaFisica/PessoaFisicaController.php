@@ -4,10 +4,11 @@ namespace App\Controller\PessoaFisica;
 
 use App\Entity\PessoaFisica;
 use App\Service\PessoaFisicaService;
+use OpenApi\Annotations as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use OpenApi\Annotations as OA;
+
 class PessoaFisicaController extends AbstractController
 {
     public PessoaFisicaService $pessoaFisicaService;
@@ -23,7 +24,7 @@ class PessoaFisicaController extends AbstractController
      *     description="Retorna uma lista do cadastro de Pessoas Fisicas"
      * )
      * @OA\Tag(name="pessoa_fisica")
-    */
+     */
     #[Route('/pessoa/fisica', name: 'pessoa_fisica', methods: ['GET'])]
     public function index(): Response
     {
@@ -64,12 +65,13 @@ class PessoaFisicaController extends AbstractController
      *     description="Retorna o cadastro realizado"
      * )
      * @OA\Tag(name="pessoa_fisica_create")
-    */
+     */
     #[Route('/pessoa/fisica/create', name: 'pessoa_fisica_create', methods: ['POST'])]
     public function createPessoaFisica(PessoaFisicaValidation $request): Response
     {
         try {
             $response = $this->pessoaFisicaService->create(new PessoaFisica(), $request);
+
             return $this->json($response->toArray());
         } catch (\Exception $e) {
             return $this->json($e->getMessage(), Response::HTTP_BAD_REQUEST);

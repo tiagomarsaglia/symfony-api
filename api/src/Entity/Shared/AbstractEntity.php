@@ -1,62 +1,50 @@
 <?php
-namespace App\Entity\Shared;
 
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
+namespace App\Entity\Shared;
 
 abstract class AbstractEntity
 {
     /**
-     *
      * @var array
      */
     private $_data;
 
     /**
-     *
      * @param array $data
      */
     public function __construct($data = null)
     {
-        if(isset($data)){
+        if (isset($data)) {
             $this->setValues($data);
         }
     }
 
     /**
-     *
-     * @param string $key
      * @param mixed $value
      */
     public function setValue(string $key, $value)
     {
         $this->_data[$key] = $value;
-        $method = "set".ucfirst($key);
+        $method = 'set'.ucfirst($key);
         if (method_exists($this, $method)) {
             $this->$method($value);
         }
     }
 
     /**
-     *
      * @param array $data
      */
     public function setValues($data)
     {
-        foreach ($data as $key => $value ) {
+        foreach ($data as $key => $value) {
             $attributs = array_keys(get_class_vars($this::class));
-            if(in_array($key, $attributs)){
+            if (\in_array($key, $attributs, true)) {
                 $this->setValue($key, $value);
             }
         }
     }
 
     /**
-     *
-     * @param string $key
      * @return mixed
      */
     public function getValue(string $key)
@@ -64,25 +52,27 @@ abstract class AbstractEntity
         return $this->_data[$key];
     }
 
-    
     /**
-     *
      * @return array
      */
-    public function toArray() {
+    public function toArray()
+    {
         return get_object_vars($this);
     }
 
     /**
-     *
      * @param mixed $input
-     * @return \DateTime|NULL
+     *
      * @throws \Exception
+     *
+     * @return \DateTime|null
      */
-    private function convertToDate($input){
-        if(!empty($input)) {
+    private function convertToDate($input)
+    {
+        if (!empty($input)) {
             return new \DateTime($input);
         }
+
         return null;
     }
 }

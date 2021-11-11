@@ -12,10 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
 class TipoOperacao extends AbstractEntity
 {
     /**
-     * ID TIPO DE OPERACAO
+     * ID TIPO DE OPERACAO.
      */
-    const SACAR = 1;
-    const RECEBER = 2;
+    public const SACAR = 1;
+    public const RECEBER = 2;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

@@ -33,7 +33,6 @@ class Pessoa extends AbstractEntity
      */
     public $pessoaJuridica;
 
-
     public function getId(): ?int
     {
         return $this->id;

@@ -2,12 +2,11 @@
 
 namespace App\Controller\Transacao;
 
-use App\Controller\Transacao\TransacaoValidation;
 use App\Service\TransacaoService;
+use OpenApi\Annotations as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use OpenApi\Annotations as OA;
 
 class TransacaoController extends AbstractController
 {
@@ -48,12 +47,13 @@ class TransacaoController extends AbstractController
      *     description="Retorna se a transação foi realizada com sucesso"
      * )
      * @OA\Tag(name="transacao")
-    */
+     */
     #[Route('/transacao', name: 'transacao', methods: ['POST'])]
     public function createTransacao(TransacaoValidation $request): Response
     {
         try {
             $response = $this->transacaoService->create($request);
+
             return $this->json(
                 ['message' => 'Transação realizada com sucesso'],
                 Response::HTTP_OK
