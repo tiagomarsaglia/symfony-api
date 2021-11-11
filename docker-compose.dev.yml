@@ -55,6 +55,11 @@ services:
             - dbdata:/var/lib/mysql/
         networks:
             - app-network
+    sonar:
+      image: sonarqube:8.4.2-community
+      container_name: symfony-sonar
+      ports:
+        - 9002:9000
 networks:
     app-network:
         driver: bridge

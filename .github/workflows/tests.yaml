@@ -23,6 +23,10 @@ jobs:
         runs-on: ${{ matrix.operating-system }}
         continue-on-error: false
 
+        defaults:
+          run:
+            working-directory: ./api
+
         strategy:
             matrix:
                 operating-system: ['ubuntu-latest']

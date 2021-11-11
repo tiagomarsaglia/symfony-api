@@ -12,6 +12,9 @@ env:
 jobs:
     php-cs-fixer:
         name: PHP-CS-Fixer
+        defaults:
+          run:
+            working-directory: ./api
         runs-on: ubuntu-latest
         steps:
             - name: "Checkout code"
@@ -25,6 +28,9 @@ jobs:
     linters:
         name: Linters
         runs-on: ubuntu-latest
+        defaults:
+          run:
+            working-directory: ./api
         strategy:
             matrix:
                 php-version: ['7.4']

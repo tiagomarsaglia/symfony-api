@@ -51,7 +51,14 @@ COPY ./api /var/www
 RUN composer self-update && \
     composer clearcache && \
     COMPOSER_MEMORY_LIMIT=-1 composer install --optimize-autoloader
-    
+
+# Download and Install sonar-scanner
+RUN wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.4.0.2170.zip && \
+    unzip sonar-scanner-cli-4.4.0.2170.zip && \
+    rm sonar-scanner-cli-4.4.0.2170.zip && \
+    mv sonar-scanner-4.4.0.2170 /usr/lib/sonar-scanner && \
+    ln -s /usr/lib/sonar-scanner/bin/sonar-scanner /usr/local/bin/sonar-scanner
+     
 # Expose port 80 and start swoole server
 EXPOSE 9000
 EXPOSE 9001
