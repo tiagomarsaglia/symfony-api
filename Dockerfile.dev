@@ -18,6 +18,7 @@ RUN apk add --no-cache sudo \
     autoconf \
     musl-dev \
     curl \
+    openjdk11-jre \
     nano
 
 

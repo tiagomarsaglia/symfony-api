@@ -64,7 +64,7 @@ class PessoaFisicaService extends AbstractService
             $this->em->commit();
             $this->em->getConnection()->setAutoCommit(true);
 
-            return $pessoaFisica;
+            return $usuario;
         } catch (\Exception $e) {
             $this->em->clear();
             $this->em->rollback();

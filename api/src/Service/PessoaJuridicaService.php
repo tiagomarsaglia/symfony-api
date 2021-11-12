@@ -60,7 +60,7 @@ class PessoaJuridicaService extends AbstractService
                 $this->em->commit();
                 $this->em->getConnection()->setAutoCommit(true);
 
-                return $pessoaFisica;
+                return $usuario;
             }
 
             throw new ValidatorException('Os dados não são compativeis com o modelo de dados');

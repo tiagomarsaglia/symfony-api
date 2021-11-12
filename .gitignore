@@ -7,6 +7,7 @@
 /api/public/bundles/
 /api/var/
 /api/vendor/
+/api/.scannerwork/
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###

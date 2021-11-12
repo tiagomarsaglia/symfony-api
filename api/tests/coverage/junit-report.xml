@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="" tests="4" assertions="8" errors="0" warnings="0" failures="0" skipped="0" time="0.116173">
-    <testsuite name="Project Test Suite" tests="4" assertions="8" errors="0" warnings="0" failures="0" skipped="0" time="0.116173">
-      <testsuite name="App\Tests\Controller\PessoaFisicaControllerTest" file="/var/www/tests/Controller/PessoaFisicaControllerTest.php" tests="1" assertions="2" errors="0" warnings="0" failures="0" skipped="0" time="0.098214">
-        <testcase name="testIndex" class="App\Tests\Controller\PessoaFisicaControllerTest" classname="App.Tests.Controller.PessoaFisicaControllerTest" file="/var/www/tests/Controller/PessoaFisicaControllerTest.php" line="9" assertions="2" time="0.098214"/>
+  <testsuite name="" tests="4" assertions="8" errors="0" warnings="0" failures="0" skipped="0" time="0.642099">
+    <testsuite name="Project Test Suite" tests="4" assertions="8" errors="0" warnings="0" failures="0" skipped="0" time="0.642099">
+      <testsuite name="App\Tests\Controller\PessoaFisicaControllerTest" file="/var/www/tests/Controller/PessoaFisicaControllerTest.php" tests="1" assertions="2" errors="0" warnings="0" failures="0" skipped="0" time="0.606051">
+        <testcase name="testIndex" class="App\Tests\Controller\PessoaFisicaControllerTest" classname="App.Tests.Controller.PessoaFisicaControllerTest" file="/var/www/tests/Controller/PessoaFisicaControllerTest.php" line="9" assertions="2" time="0.606051"/>
       </testsuite>
-      <testsuite name="App\Tests\Controller\PessoaJuridicaControllerTest" file="/var/www/tests/Controller/PessoaJuridicaControllerTest.php" tests="1" assertions="2" errors="0" warnings="0" failures="0" skipped="0" time="0.005341">
-        <testcase name="testIndex" class="App\Tests\Controller\PessoaJuridicaControllerTest" classname="App.Tests.Controller.PessoaJuridicaControllerTest" file="/var/www/tests/Controller/PessoaJuridicaControllerTest.php" line="9" assertions="2" time="0.005341"/>
+      <testsuite name="App\Tests\Controller\PessoaJuridicaControllerTest" file="/var/www/tests/Controller/PessoaJuridicaControllerTest.php" tests="1" assertions="2" errors="0" warnings="0" failures="0" skipped="0" time="0.010340">
+        <testcase name="testIndex" class="App\Tests\Controller\PessoaJuridicaControllerTest" classname="App.Tests.Controller.PessoaJuridicaControllerTest" file="/var/www/tests/Controller/PessoaJuridicaControllerTest.php" line="9" assertions="2" time="0.010340"/>
       </testsuite>
-      <testsuite name="App\Tests\Controller\TransacaoControllerTest" file="/var/www/tests/Controller/TransacaoControllerTest.php" tests="1" assertions="2" errors="0" warnings="0" failures="0" skipped="0" time="0.006752">
-        <testcase name="testIndex" class="App\Tests\Controller\TransacaoControllerTest" classname="App.Tests.Controller.TransacaoControllerTest" file="/var/www/tests/Controller/TransacaoControllerTest.php" line="9" assertions="2" time="0.006752"/>
+      <testsuite name="App\Tests\Controller\TransacaoControllerTest" file="/var/www/tests/Controller/TransacaoControllerTest.php" tests="1" assertions="2" errors="0" warnings="0" failures="0" skipped="0" time="0.016007">
+        <testcase name="testIndex" class="App\Tests\Controller\TransacaoControllerTest" classname="App.Tests.Controller.TransacaoControllerTest" file="/var/www/tests/Controller/TransacaoControllerTest.php" line="9" assertions="2" time="0.016007"/>
       </testsuite>
-      <testsuite name="App\Tests\Controller\UsuarioControllerTest" file="/var/www/tests/Controller/UsuarioControllerTest.php" tests="1" assertions="2" errors="0" warnings="0" failures="0" skipped="0" time="0.005867">
-        <testcase name="testIndex" class="App\Tests\Controller\UsuarioControllerTest" classname="App.Tests.Controller.UsuarioControllerTest" file="/var/www/tests/Controller/UsuarioControllerTest.php" line="9" assertions="2" time="0.005867"/>
+      <testsuite name="App\Tests\Controller\UsuarioControllerTest" file="/var/www/tests/Controller/UsuarioControllerTest.php" tests="1" assertions="2" errors="0" warnings="0" failures="0" skipped="0" time="0.009701">
+        <testcase name="testIndex" class="App\Tests\Controller\UsuarioControllerTest" classname="App.Tests.Controller.UsuarioControllerTest" file="/var/www/tests/Controller/UsuarioControllerTest.php" line="9" assertions="2" time="0.009701"/>
       </testsuite>
     </testsuite>
   </testsuite>

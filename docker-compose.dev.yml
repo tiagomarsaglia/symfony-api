@@ -12,7 +12,9 @@ services:
             - "9000:9000"
         environment:
             - APACHE_RUN_GROUP=#1000
-            - XDEBUG_CONFIG=remote_enable=1 remote_autostart=1 remote_host=172.0.0.1 remote_port=9001
+            - XDEBUG_CLIENT_HOST=172.17.0.1
+            - XDEBUG_CLIENT_PORT=9001
+#            - XDEBUG_CONFIG=remote_enable=1 remote_autostart=1 remote_host=172.0.0.1 remote_port=9001
         volumes:
             - ./api:/var/www:rw
         networks:
@@ -56,10 +58,13 @@ services:
         networks:
             - app-network
     sonar:
-      image: sonarqube:8.4.2-community
-      container_name: symfony-sonar
-      ports:
-        - 9002:9000
+        image: sonarqube:8.4.2-community
+        container_name: symfony-sonar
+        ports:
+            - 9002:9000
+        networks:
+            - app-network
+
 networks:
     app-network:
         driver: bridge
